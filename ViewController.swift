@@ -144,7 +144,7 @@ class ViewController: UIViewController {
         myFirstLabel.numberOfLines = 0;
         myFirstLabel.lineBreakMode = .byWordWrapping;
         
-        myFirstLabel.frame = CGRect(x: (self.view.center.x - 150), y: 200, width: 300, height: 400);
+        myFirstLabel.frame = CGRect(x: (self.view.center.x - 150), y: 200, width: 300, height: 325);
         
         myFirstLabel.backgroundColor = UIColor.gray;
         
