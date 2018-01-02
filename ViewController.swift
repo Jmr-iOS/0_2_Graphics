@@ -60,7 +60,7 @@ class ViewController: UIViewController {
         self.view.translatesAutoresizingMaskIntoConstraints = false;
 
         genButton(self.view);
-        genLabel(self.view);
+        
         
         //listen to 'Home' press
         NotificationCenter.default.addObserver(self,
@@ -74,6 +74,28 @@ class ViewController: UIViewController {
     }
 
     
+    //@todo     header
+    func drawLine() {
+     
+        let width  : CGFloat = 240.0;
+        let height : CGFloat = 160.0;
+
+        let demoView = DemoView(frame: CGRect(x: self.view.frame.size.width/2 - width/2,
+                                              y: self.view.frame.size.height/2 - height/2,
+                                              width: width,
+                                              height: height));
+
+        self.view.addSubview(demoView);
+        
+        return;
+    }
+    
+    //@todo
+    func drawCircle() {
+        
+    }
+
+
     /********************************************************************************************************************************/
     /** @fcn        applicationWillResignActive(_ notification: Notification)
      *  @brief      Tells the delegate that the app is about to become inactive
@@ -125,37 +147,6 @@ class ViewController: UIViewController {
         
         return;
     }
-    
-    
-    /********************************************************************************************************************************/
-    /** @fcn        genLabel(_ view:UIView)
-     *  @brief      add a label to the view
-     *  @details    x
-     */
-    /********************************************************************************************************************************/
-    func genLabel(_ view:UIView) {
-        
-        let myFirstLabel  = UILabel();
-
-        myFirstLabel.text          = "I made a label on the screen #toogood4you";
-        myFirstLabel.font          = UIFont(name: "MarkerFelt-Thin", size: 45);
-        myFirstLabel.textColor     = UIColor.red;
-        myFirstLabel.textAlignment = .center;
-
-        //text-wrap
-        myFirstLabel.numberOfLines = 0;
-        myFirstLabel.lineBreakMode = .byWordWrapping;
-        
-        myFirstLabel.frame = CGRect(x: (self.view.center.x - 150), y: 200, width: 300, height: 325);
-        
-        myFirstLabel.backgroundColor = UIColor.gray;
-        
-        view.addSubview(myFirstLabel);
-        
-        print("ViewController.genLabel():    label added");
-
-        return;
-    }
 
 
     /********************************************************************************************************************************/
@@ -177,6 +168,9 @@ class ViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate;
         
         appDelegate.window?.rootViewController?.present(alert, animated:true, completion:nil);
+        
+        //Draw a line
+        self.drawLine();
         
         print("ViewController.response():    button response complete");
             

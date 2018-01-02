@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D039B4B51BF4D7950024005F"
-               BuildableName = "0_0 - Empty Template (Swift).app"
-               BlueprintName = "0_0 - Empty Template (Swift)"
-               ReferencedContainer = "container:0_0 - Empty Template (Swift).xcodeproj">
+               BuildableName = "0_2 - Graphics.app"
+               BlueprintName = "0_2 - Graphics"
+               ReferencedContainer = "container:0_2 - Graphics.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D039B4B51BF4D7950024005F"
-            BuildableName = "0_0 - Empty Template (Swift).app"
-            BlueprintName = "0_0 - Empty Template (Swift)"
-            ReferencedContainer = "container:0_0 - Empty Template (Swift).xcodeproj">
+            BuildableName = "0_2 - Graphics.app"
+            BlueprintName = "0_2 - Graphics"
+            ReferencedContainer = "container:0_2 - Graphics.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -58,11 +58,18 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D039B4B51BF4D7950024005F"
-            BuildableName = "0_0 - Empty Template (Swift).app"
-            BlueprintName = "0_0 - Empty Template (Swift)"
-            ReferencedContainer = "container:0_0 - Empty Template (Swift).xcodeproj">
+            BuildableName = "0_2 - Graphics.app"
+            BlueprintName = "0_2 - Graphics"
+            ReferencedContainer = "container:0_2 - Graphics.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "OS_ACTIVITY_MODE"
+            value = "disable"
+            isEnabled = "NO">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -77,9 +84,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D039B4B51BF4D7950024005F"
-            BuildableName = "0_0 - Empty Template (Swift).app"
-            BlueprintName = "0_0 - Empty Template (Swift)"
-            ReferencedContainer = "container:0_0 - Empty Template (Swift).xcodeproj">
+            BuildableName = "0_2 - Graphics.app"
+            BlueprintName = "0_2 - Graphics"
+            ReferencedContainer = "container:0_2 - Graphics.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

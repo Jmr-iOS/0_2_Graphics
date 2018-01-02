@@ -23,7 +23,7 @@ class DataBackup : NSObject, NSCoding {
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     static let ArchiveURL         = DocumentsDirectory.appendingPathComponent("graphics_bak");
 
-    static let verbose : Bool = false;
+    static let verbose : Bool = true;
 
     //system value FOR backup
     static var vc : ViewController!;                                        /* for use and access to data during a backup store/load*/
@@ -88,7 +88,7 @@ class DataBackup : NSObject, NSCoding {
 
         let someVal_0Backup : Int? = aDecoder.decodeObject(forKey: DataBackupKeys.someVal_0) as? Int;
         
-        if(DataBackup.verbose) { print("DataBackup.convience.init?(): retrieved \(someVal_0Backup!) for dummyData"); }
+        if(DataBackup.verbose) { print("DataBackup.convience.init?(): retrieved \(String(describing: someVal_0Backup)) for dummyData"); }
         
         self.init(someVal_0: someVal_0Backup);
         
