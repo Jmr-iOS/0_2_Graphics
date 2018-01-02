@@ -1,6 +1,6 @@
 /************************************************************************************************************************************/
 /** @file		Globals.swift
- *	@project    0_0 - Empty Template (Swift)
+ *	@project    0_2 - Graphics
  *
  * 	@section	Opens
  * 			none current
