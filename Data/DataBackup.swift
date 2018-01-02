@@ -20,55 +20,79 @@ import UIKit
 class DataBackup : NSObject, NSCoding {
 
     //class data
-    @objc static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    @objc static let ArchiveURL         = DocumentsDirectory.appendingPathComponent("Empty_Templ_Sw_Bak");
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL         = DocumentsDirectory.appendingPathComponent("empty_templ_sw_bak");
 
-    @objc static let verbose : Bool = false;
+    static let verbose : Bool = false;
 
     //system value FOR backup
-    @objc static var vc : ViewController!;                                  /* for use and access to data during a backup store/load*/
+    static var vc : ViewController!;                                        /* for use and access to data during a backup store/load*/
 
     //data values FOR or FROM backup (temp verbose title for clarity)
     var someVal_0 : Int?;
 
 
 //MARK: Initialization
+    /********************************************************************************************************************************/
+    /** @fcn        init?(someVal_0 : Int?, someStr_0 : String?)
+     *  @brief      initialization from backup
+     *  @details    used by convienence init
+     *
+     *  @param      [in] (Int?)    someVal_0 - x
+     */
+    /********************************************************************************************************************************/
     init?(someVal_0 : Int?) {                                               /* Initialization from backup                           */
         
         self.someVal_0 = someVal_0;
         
-        if(DataBackup.verbose) { print("-->DataBackup.init?():                 initialization from backup begin (\(someVal_0!))"); }
+        if(DataBackup.verbose) { print("DataBackup.init?():           initialization from backup begin (\(someVal_0!))"); }
         
         super.init();
         
-        if(DataBackup.verbose) { print("-->DataBackup.init?():                 initialization from backup complete"); }
+        if(DataBackup.verbose) { print("DataBackup.init?():           initialization from backup complete"); }
         
         return;
     }
 
 
 // MARK: NSCoding
-    //store
+    //Store
+    /********************************************************************************************************************************/
+    /** @fcn        encode()
+     *  @brief      x
+     *  @details    x
+     *
+     *  @param      [in] (NSCoder) aCoder - x
+     */
+    /********************************************************************************************************************************/
     func encode(with aCoder: NSCoder) {
 
         aCoder.encode(self.someVal_0, forKey:DataBackupKeys.someVal_0);
         
-        if(DataBackup.verbose) { print("-->DataBackup.encodeWithCoder():       storage complete"); }
+        if(DataBackup.verbose) { print("DataBackup.encodeWithCoder(): storage complete"); }
         
         return;
     }
     
     
-    //retrieve
+    //Retrieve
+    /********************************************************************************************************************************/
+    /** @fcn        convenience init?()
+     *  @brief      x
+     *  @details    x
+     *
+     *  @param      [in] (NSCoder) coder - x
+     */
+    /********************************************************************************************************************************/
     required convenience init?(coder aDecoder: NSCoder) {
 
         let someVal_0Backup : Int? = aDecoder.decodeObject(forKey: DataBackupKeys.someVal_0) as? Int;
         
-        if(DataBackup.verbose) { print("-->DataBackup.convience.init?():       retrieved \(someVal_0Backup!) for dummyData"); }
+        if(DataBackup.verbose) { print("DataBackup.convience.init?(): retrieved \(someVal_0Backup!) for dummyData"); }
         
         self.init(someVal_0: someVal_0Backup);
         
-        if(DataBackup.verbose) { print("-->DataBackup.convience.init?():       initialization complete"); }
+        if(DataBackup.verbose) { print("DataBackup.convience.init?(): initialization complete"); }
         
         return;
     }
@@ -76,17 +100,22 @@ class DataBackup : NSObject, NSCoding {
 
 // MARK: Code Interface
     /********************************************************************************************************************************/
-    /*	@fcn		class func loadData() -> DataBackup?                                                                            */
-    /*  @brief      retrieve the App data & state to from file backup                                                               */
+    /*  @fcn        class func loadData()                                                                                           */
+    /*  @brief      retrieve the App data & state to file from backup                                                               */
+    /*  @details    calls convienence init() on backup retrieval                                                                    */
+    /*  @pre        vc is stored                                                                                                    */
     /********************************************************************************************************************************/
-    @objc class func loadData() -> DataBackup? {
+    @discardableResult
+    class func loadData() -> DataBackup? {
 
-        if(DataBackup.verbose) { print("-->DataBackup.loadData():             entering NSKeyedUnarchiver search"); }
+        if(DataBackup.verbose) { print("DataBackup.loadData():        entering NSKeyedUnarchiver search"); }
 
         let retrievedData : DataBackup? = NSKeyedUnarchiver.unarchiveObject(withFile: DataBackup.ArchiveURL.path) as? DataBackup;
 
-        if(DataBackup.verbose) { print("-->DataBackup.loadData():             exiting NSKeyedUnarchiver search with '\(retrievedData!.hash)'"); }
+        if(DataBackup.verbose) { print("DataBackup.loadData():        exiting NSKeyedUnarchiver search with '\(String(describing: retrievedData?.hash))'"); }
 
+        //@todo     init data of vc if needed
+        
         if(retrievedData != nil) {
             return retrievedData;
         }
@@ -99,7 +128,8 @@ class DataBackup : NSObject, NSCoding {
     /*	@fcn		class func saveData()                                                                                           */
     /*  @brief      save the App data & state from the view controller access to file for later retrieval                           */
     /********************************************************************************************************************************/
-    @objc class func saveData() {
+    @discardableResult
+    class func saveData() -> Bool {
 
         var someData : Int = 0;
         
@@ -108,26 +138,23 @@ class DataBackup : NSObject, NSCoding {
         if(prevBak != nil) {
         if(prevBak?.someVal_0 != nil) {
             
-            print("found: \(prevBak!.someVal_0!)");
+            if(DataBackup.verbose) { print("DataBackup.saveData():        found: \(prevBak!.someVal_0!)"); }
             
             someData = (prevBak!.someVal_0!) + 1;
             
-            print("saved: \(someData)");
-
+            if(DataBackup.verbose) { print("DataBackup.saveData():        saved: \(someData)"); }
         }
         }
 
-        
         let currState : Int = someData;
 
         let backup    : DataBackup    = DataBackup(someVal_0: currState)!;
 
         let backupSaveStatus = NSKeyedArchiver.archiveRootObject(backup,      toFile: DataBackup.ArchiveURL.path);
 
-        if(DataBackup.verbose) { print("-->DataBackup.saveData():    name save status is '\(backupSaveStatus)' "); }
+        if(DataBackup.verbose) { print("DataBackup.saveData():        name save status is '\(backupSaveStatus)' "); }
 
-
-        return;
+        return backupSaveStatus;
     }
     
     
@@ -135,7 +162,7 @@ class DataBackup : NSObject, NSCoding {
     /*	@fcn		class func updateBackup()                                                                                       */
     /*  @brief      a clean wrapper for simple and clear code architecture communication                                            */
     /********************************************************************************************************************************/
-    @objc class func updateBackup() {
+    class func updateBackup() {
         DataBackup.saveData();
         return;
     }
@@ -145,7 +172,7 @@ class DataBackup : NSObject, NSCoding {
     /*	@fcn		class func storeViewController(vc : ViewController)                                                             */
     /*  @brief      x                                                                                                               */
     /********************************************************************************************************************************/
-    @objc class func storeViewController(_ vc : ViewController) {
+    class func storeViewController(_ vc : ViewController) {
         DataBackup.vc = vc;
         return;
     }

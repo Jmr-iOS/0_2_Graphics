@@ -6,13 +6,13 @@
  *
  * 	@author		Justin Reina, Firmware Engineer, Jaostech
  * 	@created	11/12/15
- * 	@last rev	12/24/17
- *
- *
- * 	@notes		x
+ * 	@last rev	1/1/18
  *
  * 	@section	Opens
- * 			none current
+ * 	    none current
+ *
+ *  @note       to minimize extra uikit console prints set OS_ACTIVITY_MODE=disable" by editing the selected run Scheme and setting
+ *              as an environment run variable
  *
  * 	@section	Legal Disclaimer
  * 			All contents of this source file and/or any other Jaostech related source files are the explicit property on Jaostech
@@ -39,7 +39,9 @@ class ViewController: UIViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil);
         
         //@todo     init code
-        
+        DataBackup.loadData();													/* use here if backup needed						*/
+        DataBackup.saveData();
+
         print("ViewController.init():        Initialization complete");
             
         return;
@@ -66,7 +68,7 @@ class ViewController: UIViewController {
                                                name: NSNotification.Name.UIApplicationWillResignActive,
                                                object: nil);
     
-        print("ViewController.viewDidLoad(): Load complete");
+        print("ViewController.viewDidLoad(): load complete");
             
         return;
     }
@@ -119,7 +121,7 @@ class ViewController: UIViewController {
 
         view.addSubview(button);
         
-        print("ViewController.genButton():   Button added");
+        print("ViewController.genButton():   button added");
         
         return;
     }
@@ -150,7 +152,7 @@ class ViewController: UIViewController {
         
         view.addSubview(myFirstLabel);
         
-        print("ViewController.genLabel():    Label added");
+        print("ViewController.genLabel():    label added");
 
         return;
     }
@@ -176,7 +178,7 @@ class ViewController: UIViewController {
         
         appDelegate.window?.rootViewController?.present(alert, animated:true, completion:nil);
         
-        print("ViewController.response():    Button response complete");
+        print("ViewController.response():    button response complete");
             
         return;
     }

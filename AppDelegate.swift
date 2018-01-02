@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /********************************************************************************************************************************/
     override init() {
         super.init();
-        print("AppDelegate.init():           Initialization complete");
+        print("AppDelegate.init():           initialization complete");
     }
 
     
@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.makeKeyAndVisible();
         
-        print("AppDelegate.application():    Application launch complete");
+        print("AppDelegate.application():    application launch complete");
         
         return true;
     }
