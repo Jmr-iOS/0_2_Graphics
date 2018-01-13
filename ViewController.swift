@@ -6,10 +6,10 @@
  *
  * 	@author		Justin Reina, Firmware Engineer, Jaostech
  * 	@created	11/12/15
- * 	@last rev	1/1/18
+ * 	@last rev	1/13/18
  *
  * 	@section	Opens
- * 	    none current
+ * 	    generate reference graph (@ref  graph ref_iOS_Connect.jpg)
  *
  *  @note       to minimize extra uikit console prints set OS_ACTIVITY_MODE=disable" by editing the selected run Scheme and setting
  *              as an environment run variable
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         DataBackup.loadData();													/* use here if backup needed						*/
         DataBackup.saveData();
 
-        print("ViewController.init():        Initialization complete");
+        print("ViewController.init():        initialization complete");
             
         return;
     }
@@ -61,7 +61,6 @@ class ViewController: UIViewController {
 
         genButton(self.view);
         
-        
         //listen to 'Home' press
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(UIApplicationDelegate.applicationWillResignActive(_:)),
@@ -74,8 +73,13 @@ class ViewController: UIViewController {
     }
 
     
-    //@todo     header
-    func drawLine() {
+    /********************************************************************************************************************************/
+    /** @fcn        drawBezier()
+     *  @brief      draw a line, circle and polygons
+     *  @details    x
+     */
+    /********************************************************************************************************************************/
+    func drawBezier() {
      
         let width  : CGFloat = 240.0;
         let height : CGFloat = 160.0;
@@ -87,36 +91,6 @@ class ViewController: UIViewController {
 
         self.view.addSubview(demoView);
         
-        return;
-    }
-    
-    //@todo
-    func drawCircle() {
-        
-    }
-
-
-    /********************************************************************************************************************************/
-    /** @fcn        applicationWillResignActive(_ notification: Notification)
-     *  @brief      Tells the delegate that the app is about to become inactive
-     *  @details    This method is called to let your app know that it is about to move from the active to inactive state
-     *  @class      UIApplicationDelegate
-     */
-    /********************************************************************************************************************************/
-    func applicationWillResignActive(_ notification: Notification) {
-        print("I'm out of focus, home was pressed!");
-        return;
-    }
-
-    
-    /********************************************************************************************************************************/
-    /** @fcn        didReceiveMemoryWarning()
-     *  @brief      Sent to the view controller when the app receives a memory warning
-     *  @details    x
-     */
-    /********************************************************************************************************************************/
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning();
         return;
     }
 
@@ -170,10 +144,35 @@ class ViewController: UIViewController {
         appDelegate.window?.rootViewController?.present(alert, animated:true, completion:nil);
         
         //Draw a line
-        self.drawLine();
+        self.drawBezier();
         
         print("ViewController.response():    button response complete");
             
+        return;
+    }
+    
+    
+    /********************************************************************************************************************************/
+    /** @fcn        applicationWillResignActive(_ notification: Notification)
+     *  @brief      Tells the delegate that the app is about to become inactive
+     *  @details    This method is called to let your app know that it is about to move from the active to inactive state
+     *  @class      UIApplicationDelegate
+     */
+    /********************************************************************************************************************************/
+    func applicationWillResignActive(_ notification: Notification) {
+        print("I'm out of focus, home was pressed!");
+        return;
+    }
+    
+    
+    /********************************************************************************************************************************/
+    /** @fcn        didReceiveMemoryWarning()
+     *  @brief      Sent to the view controller when the app receives a memory warning
+     *  @details    x
+     */
+    /********************************************************************************************************************************/
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning();
         return;
     }
     
