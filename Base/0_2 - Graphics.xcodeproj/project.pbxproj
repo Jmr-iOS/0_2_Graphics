@@ -16,7 +16,8 @@
 		D04403A0200AAD0F008E142F /* Empty.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D044039D200AAD0F008E142F /* Empty.storyboard */; };
 		D04403A1200AAD0F008E142F /* NewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D044039E200AAD0F008E142F /* NewClass.swift */; };
 		D04403A2200AAD0F008E142F /* Stdcomments.swift in Sources */ = {isa = PBXBuildFile; fileRef = D044039F200AAD0F008E142F /* Stdcomments.swift */; };
-		D0EC00B71FFB30FB006F2774 /* DemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EC00B61FFB30FB006F2774 /* DemoView.swift */; };
+		D04B42E7201935B90081AA43 /* ANoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04B42E6201935B90081AA43 /* ANoteView.swift */; };
+		D0EC00B71FFB30FB006F2774 /* BezierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EC00B61FFB30FB006F2774 /* BezierView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +32,8 @@
 		D044039D200AAD0F008E142F /* Empty.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Empty.storyboard; path = ../../../../../Ref/iOS/Base/Empty.storyboard; sourceTree = "<group>"; };
 		D044039E200AAD0F008E142F /* NewClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewClass.swift; path = ../../../../../Ref/iOS/Base/NewClass.swift; sourceTree = "<group>"; };
 		D044039F200AAD0F008E142F /* Stdcomments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stdcomments.swift; path = ../../../../../Ref/iOS/Base/Stdcomments.swift; sourceTree = "<group>"; };
-		D0EC00B61FFB30FB006F2774 /* DemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DemoView.swift; path = ../DemoView.swift; sourceTree = "<group>"; };
+		D04B42E6201935B90081AA43 /* ANoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANoteView.swift; sourceTree = "<group>"; };
+		D0EC00B61FFB30FB006F2774 /* BezierView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BezierView.swift; path = ../BezierView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +53,8 @@
 				D0DFAD1F1CB158BA00555B21 /* Base */,
 				D0DFAD221CB159B100555B21 /* Data */,
 				D00C8B7E1FEF569C0091C651 /* AppDelegate.swift */,
-				D0EC00B61FFB30FB006F2774 /* DemoView.swift */,
+				D04B42E6201935B90081AA43 /* ANoteView.swift */,
+				D0EC00B61FFB30FB006F2774 /* BezierView.swift */,
 				D00C8B7D1FEF569C0091C651 /* ViewController.swift */,
 			);
 			sourceTree = "<group>";
@@ -162,9 +165,10 @@
 			files = (
 				D00C8B7F1FEF569C0091C651 /* ViewController.swift in Sources */,
 				D04403A2200AAD0F008E142F /* Stdcomments.swift in Sources */,
-				D0EC00B71FFB30FB006F2774 /* DemoView.swift in Sources */,
+				D0EC00B71FFB30FB006F2774 /* BezierView.swift in Sources */,
 				D00C8B831FEF56AA0091C651 /* DataBackup.swift in Sources */,
 				D04403A1200AAD0F008E142F /* NewClass.swift in Sources */,
+				D04B42E7201935B90081AA43 /* ANoteView.swift in Sources */,
 				D00C8B801FEF569C0091C651 /* AppDelegate.swift in Sources */,
 				D00C8B841FEF56AA0091C651 /* Globals.swift in Sources */,
 			);

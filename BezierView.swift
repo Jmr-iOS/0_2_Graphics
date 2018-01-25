@@ -1,5 +1,5 @@
 /************************************************************************************************************************************/
-/** @file       DemoView.swift
+/** @file       BezierView.swift
  *  @project    x
  *  @brief      x
  *  @details    x
@@ -17,7 +17,7 @@
 import UIKit
 
 
-class DemoView : UIView {
+class BezierView : UIView {
 
     var path  : UIBezierPath!;
     var path2 : UIBezierPath!;
@@ -37,7 +37,7 @@ class DemoView : UIView {
 
         //@note     finalization of initialization
         
-        print("DemoView.init():    initialization complete");
+        print("DemoView.init():              initialization complete");
 
         self.backgroundColor = UIColor.darkGray;
         

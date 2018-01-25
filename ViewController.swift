@@ -24,6 +24,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var bezierView : BezierView!;
+    var anoteView  : ANoteView!;
     
     /********************************************************************************************************************************/
     /** @fcn        init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -59,7 +61,7 @@ class ViewController: UIViewController {
         
         self.view.translatesAutoresizingMaskIntoConstraints = false;
 
-        genButton(self.view);
+        genButtons(self.view);
         
         //listen to 'Home' press
         NotificationCenter.default.addObserver(self,
@@ -80,42 +82,88 @@ class ViewController: UIViewController {
      */
     /********************************************************************************************************************************/
     func drawBezier() {
-     
+        
         let width  : CGFloat = 240.0;
         let height : CGFloat = 160.0;
 
-        let demoView = DemoView(frame: CGRect(x: self.view.frame.size.width/2 - width/2,
+        //@pre  check if avail
+        if(self.bezierView != nil) {
+            print("//@todo    bring to front");
+            return;
+        }
+        
+        //Gen demoView
+        bezierView = BezierView(frame: CGRect(x: self.view.frame.size.width/2 - width/2,
                                               y: self.view.frame.size.height/2 - height/2,
                                               width: width,
                                               height: height));
-
-        self.view.addSubview(demoView);
+        //Add to view
+        self.view.addSubview(bezierView);
         
         return;
     }
-
+    
     
     /********************************************************************************************************************************/
-    /** @fcn        genButton(_ view:UIView)
-     *  @brief      add a button to the view
+    /** @fcn        drawANote()
+     *  @brief      draw aNote graphics
      *  @details    x
      */
     /********************************************************************************************************************************/
-    func genButton(_ view:UIView) {
+    func drawANote() {
         
-        let button      : UIButton  = UIButton(type: UIButtonType.system) as UIButton;
-        let buttonWidth : CGFloat   = 300;
+        let width  : CGFloat = 240.0;
+        let height : CGFloat = 160.0;
         
-        button.frame = CGRect(x: self.view.center.x-(buttonWidth/2), y: 100, width: buttonWidth, height: 50);
+        //@pre  check if avail
+        if(self.anoteView != nil) {
+            print("//@todo    bring to front");
+            return;
+        }
+        
+        //Gen anoteView
+        anoteView = ANoteView(frame: CGRect(x: self.view.frame.size.width/2 - width/2,
+                                            y: self.view.frame.size.height/2 - height/2,
+                                            width: width,
+                                            height: height));
+        
+        //Add to view
+        self.view.addSubview(anoteView);
+        
+        
+    }
+    
 
+    
+    /********************************************************************************************************************************/
+    /** @fcn        genButtons(_ view:UIView)
+     *  @brief      add buttons to the view
+     *  @details    x
+     */
+    /********************************************************************************************************************************/
+    func genButtons(_ view:UIView) {
         
-        button.backgroundColor = UIColor.green;
+        //Bezier Button
+        let buttonOne      : UIButton  = UIButton(type: UIButtonType.system) as UIButton;
+        buttonOne.frame = CGRect(x: self.view.center.x-(150/2)-90, y: 590, width: 150, height: 40);
+        buttonOne.layer.cornerRadius = 10;
+        buttonOne.clipsToBounds = true;
+        buttonOne.backgroundColor = UIColor.gray;
+        buttonOne.setTitle("Draw Bezier", for: UIControlState());
+        buttonOne.addTarget(self, action: #selector(ViewController.bezierPressed(_:)), for:  .touchUpInside);
         
-        button.setTitle("Test Button", for: UIControlState());
-  
-        button.addTarget(self, action: #selector(ViewController.response(_:)), for:  .touchUpInside);
-
-        view.addSubview(button);
+        //ANote Button
+        let buttonTwo      : UIButton  = UIButton(type: UIButtonType.system) as UIButton;
+        buttonTwo.frame = CGRect(x: self.view.center.x-(150/2)+90, y: 590, width: 150, height: 40);
+        buttonTwo.layer.cornerRadius = 10;
+        buttonTwo.clipsToBounds = true;
+        buttonTwo.backgroundColor = UIColor.gray;
+        buttonTwo.setTitle("Draw ANote", for: UIControlState());
+        buttonTwo.addTarget(self, action: #selector(ViewController.anotePressed(_:)), for:  .touchUpInside);
+        
+        //Add to view
+        view.addSubview(buttonOne);
+        view.addSubview(buttonTwo);
         
         print("ViewController.genButton():   button added");
         
@@ -124,30 +172,35 @@ class ViewController: UIViewController {
 
 
     /********************************************************************************************************************************/
-    /** @fcn        response(_ sender: UIButton!)
+    /** @fcn        bezierPressed(_ sender: UIButton!)
      *  @brief      pop up a message in response
      *  @details    x
      */
     /********************************************************************************************************************************/
-    @objc func response(_ sender: UIButton!) {
+    @objc func bezierPressed(_ sender: UIButton!) {
 
-        let alert:UIAlertController = UIAlertController(title:          "Pop-up",
-                                                        message:        "message",
-                                                        preferredStyle: UIAlertControllerStyle.alert);
-        
-        alert.addAction(UIAlertAction(title:   "OK",
-                                      style:   UIAlertActionStyle.cancel,
-                                      handler: nil));
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate;
-        
-        appDelegate.window?.rootViewController?.present(alert, animated:true, completion:nil);
-        
         //Draw a line
-        self.drawBezier();
-        
-        print("ViewController.response():    button response complete");
+        drawBezier();
+
+        print("ViewController.bezPress():    button response complete");
             
+        return;
+    }
+    
+
+    /********************************************************************************************************************************/
+    /** @fcn        anotePressed(_ sender: UIButton!)
+     *  @brief      pop up a message in response
+     *  @details    x
+     */
+    /********************************************************************************************************************************/
+    @objc func anotePressed(_ sender: UIButton!) {
+        
+        //Draw anote graphics
+        drawANote();
+        
+        print("ViewController.anotePress():  button response complete");
+        
         return;
     }
     
