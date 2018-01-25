@@ -44,7 +44,8 @@ class ViewController: UIViewController {
         DataBackup.loadData();													/* use here if backup needed						*/
         DataBackup.saveData();
 
-        print("ViewController.init():        initialization complete");
+        
+        if(verbose) { print("ViewController.init():        initialization complete"); }
             
         return;
     }
@@ -69,7 +70,8 @@ class ViewController: UIViewController {
                                                name: NSNotification.Name.UIApplicationWillResignActive,
                                                object: nil);
     
-        print("ViewController.viewDidLoad(): load complete");
+        
+        if(verbose) { print("ViewController.viewDidLoad(): load complete"); }
             
         return;
     }
@@ -99,6 +101,9 @@ class ViewController: UIViewController {
                                               height: height));
         //Add to view
         self.view.addSubview(bezierView);
+        
+        
+        if(verbose) { print("ViewController.drawBezier():  bezier render complete"); }
         
         return;
     }
@@ -130,7 +135,9 @@ class ViewController: UIViewController {
         //Add to view
         self.view.addSubview(anoteView);
         
+        if(verbose) { print("ViewController.drawANote():   ANote render complete"); }
         
+        return;
     }
     
 
@@ -165,7 +172,7 @@ class ViewController: UIViewController {
         view.addSubview(buttonOne);
         view.addSubview(buttonTwo);
         
-        print("ViewController.genButton():   button added");
+        if(verbose) { print("ViewController.genButton():   button added"); }
         
         return;
     }
@@ -182,7 +189,7 @@ class ViewController: UIViewController {
         //Draw a line
         drawBezier();
 
-        print("ViewController.bezPress():    button response complete");
+        if(verbose) { print("ViewController.bezPress():    button response complete"); }
             
         return;
     }
@@ -199,7 +206,7 @@ class ViewController: UIViewController {
         //Draw anote graphics
         drawANote();
         
-        print("ViewController.anotePress():  button response complete");
+        if(verbose) { print("ViewController.anotePress():  button response complete"); }
         
         return;
     }

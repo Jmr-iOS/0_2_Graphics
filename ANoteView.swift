@@ -73,7 +73,8 @@ class ANoteView : UIView {
         //?let p = CGPoint(x: 0/*points[0].x+xOffs*/, y: 0/*points[0].y+yOffs*/);
         //?path.move(to: p);
         
-        print("ANoteView.init():             initialization complete");
+        
+        if(verbose) { print("ANoteView.init():             initialization complete"); }
         
         self.backgroundColor = UIColor.lightGray;
         
@@ -81,10 +82,32 @@ class ANoteView : UIView {
     }
     
 
-    //@todo     header
+    /********************************************************************************************************************************/
+    /** @fcn        override func draw(_ rect: CGRect)
+     *  @brief      draw the view on request
+     *  @details    x
+     */
+    /********************************************************************************************************************************/
     override func draw(_ rect: CGRect) {
         
-//      let N = getPointCt()
+//...   let N = getPointCt();
+
+        drawFolder();
+       
+        if(verbose) { print("ANoteView.draw():             ANote render complete"); }
+        
+        return;
+    }
+    
+    
+    /********************************************************************************************************************************/
+    /** @fcn        drawFolder()
+     *  @brief      draw folder shape
+     *  @details    x
+     */
+    /********************************************************************************************************************************/
+    func drawFolder() {
+        
         let x0 : CGFloat = (rT+xOffs);
         let y0 : CGFloat = (yOffs);
         let x1 : CGFloat = (x0+xT);                             /* xT                                                               */
@@ -105,7 +128,7 @@ class ANoteView : UIView {
         let y8 : CGFloat = (y7+rT);
         let x9 : CGFloat = (x8-W+xOffs-rT);
         let y9 : CGFloat = (y8-rT);
-
+        
         
         // starting point for the path (top left)
         path.move(to: CGPoint(x: x0, y: y0));
@@ -120,8 +143,8 @@ class ANoteView : UIView {
         path.addArc(withCenter: CGPoint(x: x1, y: y2),
                     radius: rT,
                     startAngle: CGFloat(3*Double.pi/2),         // 3*π/2 = 270 degrees = straight up
-                    endAngle:   CGFloat(0),                     // 0     = 0 degrees  = straight right
-                    clockwise:  true);                          // clockwise
+            endAngle:   CGFloat(0),                     // 0     = 0 degrees  = straight right
+            clockwise:  true);                          // clockwise
         
         //1b->2a (S)
         //(line)
@@ -131,19 +154,19 @@ class ANoteView : UIView {
         path.addArc(withCenter: CGPoint(x: x4, y: y3),
                     radius: rT,
                     startAngle: CGFloat(Double.pi),            // π   = 180 degrees = straight left
-                    endAngle:   CGFloat(Double.pi/2),          // π/2 = 90 degrees  = straight down
-                    clockwise:  false);                        // counter-clockwise
-
+            endAngle:   CGFloat(Double.pi/2),          // π/2 = 90 degrees  = straight down
+            clockwise:  false);                        // counter-clockwise
+        
         //2b->3a (S)
         //(line)
         path.addLine(to: CGPoint(x: x5, y: y5));
-
+        
         //(curve)
         path.addArc(withCenter: CGPoint(x: x5, y: y6),
                     radius: rT,
                     startAngle: CGFloat(3*Double.pi/2),         // 3*π/2 = 270 degrees = straight up
-                    endAngle:   CGFloat(0),                     // 0     = 0 degrees   = straight right
-                    clockwise:  true);                          // clockwise
+            endAngle:   CGFloat(0),                     // 0     = 0 degrees   = straight right
+            clockwise:  true);                          // clockwise
         
         //3b->4a (S)
         //(line)
@@ -153,9 +176,9 @@ class ANoteView : UIView {
         path.addArc(withCenter: CGPoint(x: x8, y:y7),
                     radius:     rT,
                     startAngle: CGFloat(0),                     // 0     = 0 degrees = straight right
-                    endAngle:   CGFloat(Double.pi/2),           // π/2   = 90 degrees  = straight down
-                    clockwise:  true);                          // clockwise
-
+            endAngle:   CGFloat(Double.pi/2),           // π/2   = 90 degrees  = straight down
+            clockwise:  true);                          // clockwise
+        
         //4b->5a (S)
         //(line)
         path.addLine(to: CGPoint(x: x9-(xOffs-rT), y: y9+rT));
@@ -164,8 +187,8 @@ class ANoteView : UIView {
         path.addArc(withCenter: CGPoint(x: x9-(xOffs-rT), y: y9),
                     radius:     rT,
                     startAngle: CGFloat(Double.pi/2),           // π/2   = 90 degrees  = straight down
-                    endAngle:   CGFloat(Double.pi),             // π   = 180 degrees = straight left
-                    clockwise:  true);                          // clockwise
+            endAngle:   CGFloat(Double.pi),             // π   = 180 degrees = straight left
+            clockwise:  true);                          // clockwise
         
         //5b->0a (S)
         //(line)
@@ -175,8 +198,8 @@ class ANoteView : UIView {
         path.addArc(withCenter: CGPoint(x: x9-(xOffs-rT), y: y0+rT),
                     radius:     rT,
                     startAngle: CGFloat(Double.pi),             // π   = 180 degrees = straight left
-                    endAngle:   CGFloat(3*Double.pi/2),         // 3*π/2 = 270 degrees = straight up
-                    clockwise:  true);                          // clockwise
+            endAngle:   CGFloat(3*Double.pi/2),         // 3*π/2 = 270 degrees = straight up
+            clockwise:  true);                          // clockwise
         
         // Specify the fill color and apply it to the path.
         UIColor.orange.setFill();
@@ -185,11 +208,13 @@ class ANoteView : UIView {
         // Specify a border (stroke) color.
         UIColor.black.setStroke();
         path.stroke();
+        
 
-        print("B");
-       
+        if(verbose) { print("ANoteView.drawFolder():       folder render complete"); }
+        
         return;
     }
+
     
     
     /********************************************************************************************************************************/

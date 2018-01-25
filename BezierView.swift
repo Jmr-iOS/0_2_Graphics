@@ -23,6 +23,7 @@ class BezierView : UIView {
     var path2 : UIBezierPath!;
     var path3 : UIBezierPath!;
     
+    
     /********************************************************************************************************************************/
     /** @fcn        init()
      *  @brief      x
@@ -37,7 +38,8 @@ class BezierView : UIView {
 
         //@note     finalization of initialization
         
-        print("DemoView.init():              initialization complete");
+
+        if(verbose) { print("BezierView.init():            initialization complete"); }
 
         self.backgroundColor = UIColor.darkGray;
         
@@ -45,7 +47,12 @@ class BezierView : UIView {
     }
     
     
-    //@todo     header
+    /********************************************************************************************************************************/
+    /** @fcn        override func draw(_ rect: CGRect)
+     *  @brief      called on view render
+     *  @details    x
+     */
+    /********************************************************************************************************************************/
     override func draw(_ rect: CGRect) {
 
         createRectangle();
@@ -53,6 +60,8 @@ class BezierView : UIView {
         createTriangle();
 
         createCircle();
+        
+        if(verbose) { print("BezierView.draw():            bezier render complete"); }
         
         return;
     }
@@ -95,6 +104,9 @@ class BezierView : UIView {
         UIColor.black.setStroke();
         path.stroke();
 
+
+        if(verbose) { print("BezierView.createRect():      rectangle render complete"); }
+        
         return;
     }
 
@@ -127,6 +139,9 @@ class BezierView : UIView {
         // Specify a border (stroke) color.
         UIColor.black.setStroke();
         path2.stroke();
+        
+
+        if(verbose) { print("BezierView.createTri():       triangle render complete"); }
 
         return;
     }
@@ -160,6 +175,9 @@ class BezierView : UIView {
         UIColor.black.setStroke();
         path3.stroke();
 
+
+        if(verbose) { print("BezierView.createCirc():      circle render complete"); }
+        
         return;
     }
     

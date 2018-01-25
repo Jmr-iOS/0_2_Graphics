@@ -12,7 +12,7 @@
 /************************************************************************************************************************************/
 import UIKit
 
-let verbose : Bool    = false;
+let verbose : Bool    = true;
 let globals : Globals = Globals();
 
 //->(put your variables here)
@@ -23,7 +23,7 @@ let globals : Globals = Globals();
 /************************************************************************************************************************************/
 class Globals : NSObject {
     
-    let example_var_0  : Int = 3;
+    let example_var_0 : Int = 3;
     var example_var_1 : Int?;
 
 

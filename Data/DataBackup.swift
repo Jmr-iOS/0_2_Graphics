@@ -23,7 +23,7 @@ class DataBackup : NSObject, NSCoding {
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     static let ArchiveURL         = DocumentsDirectory.appendingPathComponent("graphics_bak");
 
-    static let verbose : Bool = true;
+    static let verbose : Bool = false;
 
     //system value FOR backup
     static var vc : ViewController!;                                        /* for use and access to data during a backup store/load*/
