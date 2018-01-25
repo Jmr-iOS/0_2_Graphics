@@ -98,8 +98,13 @@ class ANoteView : UIView {
         
         return;
     }
-    
-    
+
+    //Angle Definitions
+    let RIGHT = CGFloat(0);
+    let DOWN  = CGFloat(Double.pi/2);
+    let LEFT  = CGFloat(Double.pi);
+    let UP    = CGFloat(3*Double.pi/2);
+
     /********************************************************************************************************************************/
     /** @fcn        drawFolder()
      *  @brief      draw folder shape
@@ -142,8 +147,8 @@ class ANoteView : UIView {
         //(curve)
         path.addArc(withCenter: CGPoint(x: x1, y: y2),
                     radius: rT,
-                    startAngle: CGFloat(3*Double.pi/2),         // 3*π/2 = 270 degrees = straight up
-            endAngle:   CGFloat(0),                     // 0     = 0 degrees  = straight right
+                    startAngle: UP,
+            endAngle:   RIGHT,
             clockwise:  true);                          // clockwise
         
         //1b->2a (S)
@@ -153,8 +158,8 @@ class ANoteView : UIView {
         //(curve)
         path.addArc(withCenter: CGPoint(x: x4, y: y3),
                     radius: rT,
-                    startAngle: CGFloat(Double.pi),            // π   = 180 degrees = straight left
-            endAngle:   CGFloat(Double.pi/2),          // π/2 = 90 degrees  = straight down
+                    startAngle: LEFT,
+            endAngle:   DOWN,
             clockwise:  false);                        // counter-clockwise
         
         //2b->3a (S)
@@ -164,8 +169,8 @@ class ANoteView : UIView {
         //(curve)
         path.addArc(withCenter: CGPoint(x: x5, y: y6),
                     radius: rT,
-                    startAngle: CGFloat(3*Double.pi/2),         // 3*π/2 = 270 degrees = straight up
-            endAngle:   CGFloat(0),                     // 0     = 0 degrees   = straight right
+                    startAngle: UP,
+            endAngle:   RIGHT,
             clockwise:  true);                          // clockwise
         
         //3b->4a (S)
@@ -175,8 +180,8 @@ class ANoteView : UIView {
         //(curve)
         path.addArc(withCenter: CGPoint(x: x8, y:y7),
                     radius:     rT,
-                    startAngle: CGFloat(0),                     // 0     = 0 degrees = straight right
-            endAngle:   CGFloat(Double.pi/2),           // π/2   = 90 degrees  = straight down
+                    startAngle: RIGHT,
+            endAngle:   DOWN,
             clockwise:  true);                          // clockwise
         
         //4b->5a (S)
@@ -186,8 +191,8 @@ class ANoteView : UIView {
         //(curve)
         path.addArc(withCenter: CGPoint(x: x9-(xOffs-rT), y: y9),
                     radius:     rT,
-                    startAngle: CGFloat(Double.pi/2),           // π/2   = 90 degrees  = straight down
-            endAngle:   CGFloat(Double.pi),             // π   = 180 degrees = straight left
+                    startAngle: DOWN,
+            endAngle:   LEFT,
             clockwise:  true);                          // clockwise
         
         //5b->0a (S)
@@ -197,8 +202,8 @@ class ANoteView : UIView {
         //(curve)
         path.addArc(withCenter: CGPoint(x: x9-(xOffs-rT), y: y0+rT),
                     radius:     rT,
-                    startAngle: CGFloat(Double.pi),             // π   = 180 degrees = straight left
-            endAngle:   CGFloat(3*Double.pi/2),         // 3*π/2 = 270 degrees = straight up
+                    startAngle: LEFT,
+            endAngle:   UP,
             clockwise:  true);                          // clockwise
         
         // Specify the fill color and apply it to the path.
