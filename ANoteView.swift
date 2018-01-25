@@ -17,41 +17,50 @@
  *      cF - Folder Color
  *      cA - Arrow Color
  *
- *  @note   you can apply a single value of radius to UIBezier path, with applied corner selections thus folder has two components
- *
  *  @section    Legal Disclaimer
  *      All contents of this source file and/or any other Jaostech related source files are the explicit property of Jaostech
  *      Corporation. Do not distribute. Do not copy.
  */
 /************************************************************************************************************************************/
 import UIKit
-let xOffs : CGFloat = 30;
-let yOffs : CGFloat = 30;
-
-let W  : CGFloat = 120;
-let H  : CGFloat = 85;
-let xT : CGFloat = 40;
-let yT : CGFloat = 20;
-let rT : CGFloat = 12;
-let rF : CGFloat = 25;
 
 
+//**********************************************************************************************************************************//
+//                                                      STRUCTS                                                                     //
+//**********************************************************************************************************************************//
+struct Dims {
+    var w : CGFloat;                                                    /* width                                                    */
+    var h : CGFloat;                                                    /* height                                                   */
+    var r : CGFloat;                                                    /* radius                                                   */
+};
+
+struct Folder {
+    var dims   : Dims;                                                  /* outer folder dimensions including tab                    */
+    var offs   : CGPoint;                                               /* origin offset (upper left)                               */
+    var tab    : Dims;                                                  /* tab dimensions                                           */
+};
+
+//pointed downwards, origin at direct center of triangle
+struct Arrow {
+    var orig : CGPoint;                                                 /* origin                                                   */
+    var w : CGFloat;                                                    /* width                                                    */
+    var h : CGFloat;                                                    /* height                                                   */
+};
+
+
+//**********************************************************************************************************************************//
+//                                               (ANoteView : UIView)                                                               //
+//**********************************************************************************************************************************//
 class ANoteView : UIView {
 
     //Vars
-    var path    : UIBezierPath!;
-
-    //Colors
-    let cF = UIColor.gray;
-    let cA = UIColor.cyan;
+    var folderPath : UIBezierPath!;
+    let arrowPath  : UIBezierPath!;
     
-    //Points
-    let points = [CGPoint(x:0, y:0),    //P1
-                  CGPoint(x:xT, y:0),   //P2
-                  CGPoint(x:xT, y:yT),  //P3
-                  CGPoint(x:W, y:yT),   //P4
-                  CGPoint(x:W, y:H),    //P5
-                  CGPoint(x:0, y:H)];   //P6
+    //Colors
+    var cF = UIColor.gray;
+    var cA = UIColor.cyan;
+
     
     /********************************************************************************************************************************/
     /** @fcn        init()
@@ -62,12 +71,14 @@ class ANoteView : UIView {
     override init(frame: CGRect) {
         
         //Init path
-        path = UIBezierPath();
+        folderPath = UIBezierPath();
+        arrowPath  = UIBezierPath();
         
         super.init(frame: frame);
         
         // Specify line width.
-        path.lineWidth = 5;
+        folderPath.lineWidth = 1;
+        arrowPath.lineWidth  = 1;
         
         if(verbose) { print("ANoteView.init():             initialization complete"); }
         
@@ -85,7 +96,39 @@ class ANoteView : UIView {
     /********************************************************************************************************************************/
     override func draw(_ rect: CGRect) {
         
-        drawFolder();
+        //Offset
+        let xOffs : CGFloat = 20;
+        let yOffs : CGFloat = 40;
+        
+        //Dims
+        let W  : CGFloat = 120;
+        let H  : CGFloat = 85;
+        let xT : CGFloat = 40;
+        let yT : CGFloat = 20;
+        
+        //Radii
+        let rT : CGFloat = 5;
+        let rF : CGFloat = 25;
+
+        //Arrow
+        let orig = CGPoint(x: 95, y: 100);
+        let aW : CGFloat = 60;
+        let aH : CGFloat = 20;
+        
+        //Gen Struct
+        let dims =    Dims(w: W,     h: H,    r: rF);
+        let tabs =    Dims(w: xT,    h: yT,   r: rT);
+        let offs = CGPoint(x: xOffs, y: yOffs);
+        
+        //Gen Containers
+        let f = Folder(dims: dims, offs: offs, tab:  tabs);
+        let a = Arrow(orig: orig, w: aW, h: aH);
+        
+        
+        //Draw
+        drawFolder(folder: f);
+        drawArrow(arrow: a);
+//      drawBookmark(bookmark: b);
        
         if(verbose) { print("ANoteView.draw():             ANote render complete"); }
         
@@ -97,14 +140,26 @@ class ANoteView : UIView {
     let DOWN  = CGFloat(Double.pi/2);
     let LEFT  = CGFloat(Double.pi);
     let UP    = CGFloat(3*Double.pi/2);
-
+    
+    
     /********************************************************************************************************************************/
-    /** @fcn        drawFolder()
+    /** @fcn        drawFolder(folder : Folder)
      *  @brief      draw folder shape
      *  @details    x
      */
     /********************************************************************************************************************************/
-    func drawFolder() {
+    func drawFolder(folder : Folder) {
+        
+        //Grab Shorthand
+        let xOffs = folder.offs.x;
+        let yOffs = folder.offs.y;
+        let W     = folder.dims.w;
+        let H     = folder.dims.h;
+        let xT    = folder.tab.w;
+        let yT    = folder.tab.h;
+        let rF    = folder.dims.r;
+        let rT    = folder.tab.r;
+
         
         //Main Points
         let x0 : CGFloat = (rT+xOffs);
@@ -151,11 +206,11 @@ class ANoteView : UIView {
         let P3N = CGPoint(x: x4, y: y3);
         let P5N = CGPoint(x: x5, y: y6);
         let P7N = CGPoint(x: x8, y:y7);
-        let PQ  = CGPoint(x: xA+18, y: y9-18);
+        let PQ  = CGPoint(x: x9, y: (y8-xOffs));
         let PAN = CGPoint(x: xA, y: yB);
 
         // starting point for the path (top left)
-        path.move(to: P0);
+        folderPath.move(to: P0);
         
         //from 0..1..2..3..4..5..0
         
@@ -164,68 +219,102 @@ class ANoteView : UIView {
         //?path.addLine(to: CGPoint(x: x0, y: y1));     (not drawn?)
         
         //(curve)
-        path.addArc(withCenter: P1N, radius: rT, startAngle: UP, endAngle: RIGHT, clockwise: true);
+        folderPath.addArc(withCenter: P1N, radius: rT, startAngle: UP, endAngle: RIGHT, clockwise: true);
         
         //1b->2a (S)
         //(line)
-        path.addLine(to: P3);
+        folderPath.addLine(to: P3);
         
         //(curve)
-        path.addArc(withCenter: P3N, radius: rT, startAngle: LEFT, endAngle: DOWN, clockwise: false);
+        folderPath.addArc(withCenter: P3N, radius: rT, startAngle: LEFT, endAngle: DOWN, clockwise: false);
         
         //2b->3a (S)
         //(line)
-        path.addLine(to: P5);
+        folderPath.addLine(to: P5);
         
         //(curve)
-        path.addArc(withCenter: P5N, radius: rF, startAngle: UP, endAngle: RIGHT, clockwise: true);
+        folderPath.addArc(withCenter: P5N, radius: rF, startAngle: UP, endAngle: RIGHT, clockwise: true);
         
         //3b->4a (S)
         //(line)
-        path.addLine(to: P7);
+        folderPath.addLine(to: P7);
         
         //(curve)
-        path.addArc(withCenter: P7N, radius: rF, startAngle: RIGHT, endAngle: DOWN, clockwise: true);
+        folderPath.addArc(withCenter: P7N, radius: rF, startAngle: RIGHT, endAngle: DOWN, clockwise: true);
         
         //4b->5a (S)
         //(line)
-        path.addLine(to: CGPoint(x: xA+18, y: yA));
+        folderPath.addLine(to: CGPoint(x: x9, y: yA));
         
         //(curve)
-        path.addArc(withCenter: PQ, radius: rT+18, startAngle: DOWN, endAngle: LEFT, clockwise: true);
+        folderPath.addArc(withCenter: PQ, radius: xOffs, startAngle: DOWN, endAngle: LEFT, clockwise: true);
         
         //5b->0a (S)
         //(line)
-        path.addLine(to: PB);
+        folderPath.addLine(to: PB);
         
         //(curve)
-        path.addArc(withCenter: PAN, radius: rT, startAngle: LEFT, endAngle: UP, clockwise: true);
+        folderPath.addArc(withCenter: PAN, radius: rT, startAngle: LEFT, endAngle: UP, clockwise: true);
 
         // Specify the fill color and apply it to the path.
         UIColor.orange.setFill();
-        path.fill();
+        folderPath.fill();
         
         // Specify a border (stroke) color.
         UIColor.black.setStroke();
-        path.stroke();
+        folderPath.stroke();
         
 
         if(verbose) { print("ANoteView.drawFolder():       folder render complete"); }
         
         return;
     }
-    
+
     
     /********************************************************************************************************************************/
-    /** @fcn        getPointCt() -> Int
-     *  @brief      get point count
-     *  @details    x
+    /** @fcn        drawArrow(arrow : Arrow)
+     *  @brief      draw folder shape
+     *  @details    pointed downwards, origin at direct center of triangle
      */
     /********************************************************************************************************************************/
-    func getPointCt() -> Int {
-        return points.count;
+    func drawArrow(arrow : Arrow) {
+        
+        //Calculate Top-Left
+        let x = arrow.orig.x - (arrow.w/2);
+        let y = arrow.orig.y - (arrow.h/2);
+        let w = arrow.w;
+        let h = arrow.h;
+        let xm = arrow.orig.x;
+        
+        let P0 = CGPoint(x: x,     y: y);
+        let P1 = CGPoint(x: (x+w), y: y);
+        let P2 = CGPoint(x: xm,    y: (y+h));
+        
+        //P1 - Top-Left
+        arrowPath.move(to: P0);
+        arrowPath.addLine(to: P1);
+        
+        //P2 - Top-Right
+        arrowPath.addLine(to: P2);
+    
+        //P3 - Bottom-Center
+        arrowPath.addLine(to: P0);
+        
+        
+        // Specify the fill color and apply it to the path.
+        UIColor.gray.setFill();
+        arrowPath.fill();
+        
+        // Specify a border (stroke) color.
+        UIColor.black.setStroke();
+        arrowPath.stroke();
+        
+        
+        if(verbose) { print("ANoteView.drawArrow():        arrow render complete"); }
+        
+        return;
     }
-
+    
     
     /********************************************************************************************************************************/
     /** @fcn        init?(coder aDecoder: NSCoder)
@@ -234,6 +323,7 @@ class ANoteView : UIView {
      */
     /********************************************************************************************************************************/
     required init?(coder aDecoder: NSCoder) {
+        arrowPath = UIBezierPath();
         super.init(coder: aDecoder)
     }
 }

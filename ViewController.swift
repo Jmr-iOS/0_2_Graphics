@@ -90,7 +90,7 @@ class ViewController: UIViewController {
 
         //@pre  check if avail
         if(self.bezierView != nil) {
-            print("//@todo    bring to front");
+            self.view.bringSubview(toFront: self.bezierView);
             return;
         }
         
@@ -122,7 +122,7 @@ class ViewController: UIViewController {
         
         //@pre  check if avail
         if(self.anoteView != nil) {
-            print("//@todo    bring to front");
+            self.view.bringSubview(toFront: self.anoteView);
             return;
         }
         
