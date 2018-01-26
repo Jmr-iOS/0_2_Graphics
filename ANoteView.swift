@@ -82,7 +82,7 @@ class ANoteView : UIView {
         arrowPath  = UIBezierPath();
         
         //Gen reduced frame
-        let bFrame = CGRect(x: x+50, y: y+75, width: w-100, height: h-300);
+        let bFrame = CGRect(x: x, y: y, width: w, height: h-100);
         
         //Super
         super.init(frame: bFrame);
