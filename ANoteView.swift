@@ -70,11 +70,22 @@ class ANoteView : UIView {
     /********************************************************************************************************************************/
     override init(frame: CGRect) {
         
+        
+        //Grab dims
+        let x = frame.origin.x;
+        let y = frame.origin.y;
+        let w = frame.width;
+        let h = frame.height;
+        
         //Init path
         folderPath = UIBezierPath();
         arrowPath  = UIBezierPath();
         
-        super.init(frame: frame);
+        //Gen reduced frame
+        let bFrame = CGRect(x: x+50, y: y+75, width: w-100, height: h-300);
+        
+        //Super
+        super.init(frame: bFrame);
         
         // Specify line width.
         folderPath.lineWidth = 1;
@@ -84,7 +95,7 @@ class ANoteView : UIView {
         
         self.backgroundColor = UIColor.lightGray;
         
-        return;
+        return;        
     }
     
 
@@ -96,16 +107,20 @@ class ANoteView : UIView {
     /********************************************************************************************************************************/
     override func draw(_ rect: CGRect) {
         
+        
+    //******************************************************************************************************************************//
+    //                                                  DIMENSIONS                                                                  //
+    //******************************************************************************************************************************//
         //Offset
         let xOffs : CGFloat = 20;
         let yOffs : CGFloat = 40;
-        
+
         //Dims
         let W  : CGFloat = 120;
         let H  : CGFloat = 85;
         let xT : CGFloat = 40;
         let yT : CGFloat = 20;
-        
+
         //Radii
         let rT : CGFloat = 5;
         let rF : CGFloat = 25;
@@ -114,7 +129,11 @@ class ANoteView : UIView {
         let orig = CGPoint(x: 95, y: 100);
         let aW : CGFloat = 60;
         let aH : CGFloat = 20;
-        
+
+
+    //******************************************************************************************************************************//
+    //                                                  WRAPPERS                                                                    //
+    //******************************************************************************************************************************//
         //Gen Struct
         let dims =    Dims(w: W,     h: H,    r: rF);
         let tabs =    Dims(w: xT,    h: yT,   r: rT);

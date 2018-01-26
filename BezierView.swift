@@ -32,12 +32,17 @@ class BezierView : UIView {
     /********************************************************************************************************************************/
     override init(frame: CGRect) {
 
-        //@note     initialization of additional vars
-
-        super.init(frame: frame);
-
-        //@note     finalization of initialization
+        //Grab dims
+        let x = frame.origin.x;
+        let y = frame.origin.y;
+        let w = frame.width;
+        let h = frame.height;
         
+        //Gen reduced frame
+        let bFrame = CGRect(x: x+50, y: y+75, width: w-100, height: h-300);
+        
+        //Super
+        super.init(frame: bFrame);
 
         if(verbose) { print("BezierView.init():            initialization complete"); }
 

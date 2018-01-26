@@ -85,9 +85,6 @@ class ViewController: UIViewController {
     /********************************************************************************************************************************/
     func drawBezier() {
         
-        let width  : CGFloat = 240.0;
-        let height : CGFloat = 160.0;
-
         //@pre  check if avail
         if(self.bezierView != nil) {
             self.view.bringSubview(toFront: self.bezierView);
@@ -95,10 +92,8 @@ class ViewController: UIViewController {
         }
         
         //Gen demoView
-        bezierView = BezierView(frame: CGRect(x: self.view.frame.size.width/2 - width/2,
-                                              y: self.view.frame.size.height/2 - height/2,
-                                              width: width,
-                                              height: height));
+        bezierView = BezierView(frame: self.view.frame);
+        
         //Add to view
         self.view.addSubview(bezierView);
         
@@ -117,9 +112,6 @@ class ViewController: UIViewController {
     /********************************************************************************************************************************/
     func drawANote() {
         
-        let width  : CGFloat = 240.0;
-        let height : CGFloat = 160.0;
-        
         //@pre  check if avail
         if(self.anoteView != nil) {
             self.view.bringSubview(toFront: self.anoteView);
@@ -127,10 +119,7 @@ class ViewController: UIViewController {
         }
         
         //Gen anoteView
-        anoteView = ANoteView(frame: CGRect(x: self.view.frame.size.width/2 - width/2,
-                                            y: self.view.frame.size.height/2 - height/2,
-                                            width: width,
-                                            height: height));
+        anoteView = ANoteView(frame: self.view.frame);
         
         //Add to view
         self.view.addSubview(anoteView);
